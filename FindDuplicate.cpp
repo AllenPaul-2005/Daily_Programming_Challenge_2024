@@ -2,23 +2,28 @@
 #include <vector>
 using namespace std;
 
-int findDuplicate(const vector<int> &arr)
-{
-    int n = arr.size() - 1;           // Since array has n+1 elements
-    int sum_of_n = (n * (n + 1)) / 2; // Sum of first n natural numbers
-
-    int actual_sum = 0; // Sum of all elements in the array
-    for (int num : arr)
-    {
-        actual_sum += num;
+int findDuplicate(const vector<int>& arr) {
+    // Phase 1: Finding the intersection point of the two runners.
+    int tortoise = arr[0];
+    int hare = arr[0];
+    
+    do {
+        tortoise = arr[tortoise];    // Move tortoise by one step
+        hare = arr[arr[hare]];       // Move hare by two steps
+    } while (tortoise != hare);      // Loop until they meet
+    
+    // Phase 2: Find the entrance to the cycle.
+    tortoise = arr[0];               // Move tortoise to the start
+    
+    while (tortoise != hare) {
+        tortoise = arr[tortoise];    // Move both one step
+        hare = arr[hare];
     }
-
-    // The duplicate number is the difference between the actual sum and the expected sum
-    return actual_sum - sum_of_n;
+    
+    return hare;  // Both pointers meet at the duplicate number
 }
 
-int main()
-{
+int main() {
     vector<int> arr = {3, 1, 3, 4, 2};
     cout << "Duplicate number: " << findDuplicate(arr) << endl;
     return 0;
