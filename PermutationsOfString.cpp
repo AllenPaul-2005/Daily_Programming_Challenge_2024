@@ -2,9 +2,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-
 using namespace std;
-
 void permute(string s, int l, int r, vector<string> &result)
 {
     if (l == r)
@@ -16,21 +14,21 @@ void permute(string s, int l, int r, vector<string> &result)
         for (int i = l; i <= r; i++)
         {
             if (i != l && s[i] == s[l])
-                continue;     // Skip duplicates
-            swap(s[l], s[i]); // Swap characters
+                continue;    
+            swap(s[l], s[i]); 
             permute(s, l + 1, r, result);
-            swap(s[l], s[i]); // Backtrack to original string
+            swap(s[l], s[i]); 
         }
     }
 }
 
 vector<string> generatePermutations(string s)
 {
-    sort(s.begin(), s.end()); // Sort to handle duplicates
+    sort(s.begin(), s.end()); 
     vector<string> result;
     permute(s, 0, s.size() - 1, result);
-    sort(result.begin(), result.end());                               // Optional: Sort the result
-    result.erase(unique(result.begin(), result.end()), result.end()); // Remove duplicates
+    sort(result.begin(), result.end());                               
+    result.erase(unique(result.begin(), result.end()), result.end()); 
     return result;
 }
 
