@@ -3,10 +3,8 @@
 using namespace std;
 
 // Function to insert an element into the sorted stack
-void insertSorted(stack<int> &st, int element)
-{
-    if (st.empty() || element > st.top())
-    {
+void insertSorted(stack<int> &st, int element) {
+    if (st.empty() || element > st.top()) {
         st.push(element);
         return;
     }
@@ -18,10 +16,8 @@ void insertSorted(stack<int> &st, int element)
 }
 
 // Function to sort the stack using recursion
-void sortStack(stack<int> &st)
-{
-    if (st.empty())
-    {
+void sortStack(stack<int> &st) {
+    if (st.empty()) {
         return;
     }
 
@@ -31,32 +27,31 @@ void sortStack(stack<int> &st)
     insertSorted(st, topElement);
 }
 
-// Function to print the stack elements
-void printStack(stack<int> st)
-{
-    while (!st.empty())
-    {
-        cout << st.top() << " ";
-        st.pop();
+// Function to print the stack elements from bottom to top using recursion
+void printStackRecursively(stack<int> &st) {
+    if (st.empty()) {
+        return;
     }
-    cout << endl;
+
+    int topElement = st.top();
+    st.pop();
+    printStackRecursively(st);
+    cout << topElement << " ";
+    st.push(topElement);
 }
 
-int main()
-{
+int main() {
     stack<int> st;
     st.push(3);
     st.push(1);
     st.push(4);
     st.push(2);
 
-    cout << "Original Stack: ";
-    printStack(st);
-
     sortStack(st);
 
     cout << "Sorted Stack: ";
-    printStack(st);
+    printStackRecursively(st);
+    cout << endl;
 
     return 0;
 }
